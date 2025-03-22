@@ -11,17 +11,17 @@
  */
 class Photo : public MultiMedia
 {
+    friend class MediaManager;
 private:
     double width {};  ///< Width of the photo in pixels.
     double height {}; ///< Height of the photo in pixels.
 
-public:
     /**
      * @brief Default constructor for the Photo class.
      * Initializes the photo with default values.
      */
     Photo(){}
-
+    
     /**
      * @brief Parameterized constructor to initialize a Photo object.
      * 
@@ -31,7 +31,7 @@ public:
      * @param height The height of the photo in pixels.
      */
     Photo(string name, string path, double width, double height) : 
-        MultiMedia(name, path), width{width}, height{height} {}
+    MultiMedia(name, path), width{width}, height{height} {}
 
     /**
      * @brief Destructor for the Photo class.
@@ -39,7 +39,8 @@ public:
     ~Photo(){
         cout<< " A Photo classe has been destroyed U Monster"<<endl; 
     };
-
+    
+public:
     /**
      * @brief Sets the width of the photo.
      * 

@@ -3,19 +3,20 @@
 #include "Video.h"
 class Film : public Video
 {
+    friend class MediaManager;
 private:
     unsigned int * chapters {};
     unsigned int nb_chapters {};
-public:
-    Film(){}
+    Film();
     
-    Film(string name , string path , unsigned int duration , unsigned int * chapters, 
-        unsigned int nb_chapters);
+    Film(string name , string path , unsigned int duration , 
+        unsigned int * chapters, unsigned int nb_chapters);
     
-    ~Film( );
+    ~Film();
 
     Film(const  Film & from);
     Film & operator=(const Film & from);
+public:
 
 
 

@@ -11,16 +11,17 @@
  */
 class Video : public MultiMedia
 {
+    friend class MediaManager;
+    friend class Film;
 private:
     unsigned int duration {}; ///< Duration of the video in seconds.
 
-public:
     /**
      * @brief Default constructor for the Video class.
      * Initializes the video with default values.
      */
     Video(){}
-
+    
     /**
      * @brief Parameterized constructor to initialize a Video object.
      * 
@@ -29,15 +30,16 @@ public:
      * @param duration The duration of the video in seconds.
      */
     Video(string name, string path, unsigned int duration) :
-        MultiMedia(name, path), duration{duration} {}
-
+    MultiMedia(name, path), duration{duration} {}
+    
     /**
      * @brief Destructor for the Video class.
      */
     ~Video(){ 
-         cout << " A Video classe has been destroyed U Monster" <<endl; 
+        cout << " A Video classe has been destroyed U Monster" <<endl; 
     };
-
+public:
+    
     /**
      * @brief Sets the duration of the video.
      * 
