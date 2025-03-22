@@ -1,3 +1,5 @@
 *.o
 depend-myprog
 .vscode/
+html/
+latex/
