@@ -6,6 +6,7 @@ Film::Film(string name , string path , unsigned int duration , unsigned int *
         {
             this->chapters = new unsigned int[nb_chapters]; // Allocation dynamique
             for (unsigned int i = 0; i < nb_chapters; ++i) {
+                if (!chapters){this->chapters=nullptr;this->nb_chapters=0;break;}
                 this->chapters[i] = chapters[i]; // Copie des données
             }
         }
@@ -17,6 +18,7 @@ void Film::set_chapters(unsigned int * chapters , unsigned int nb_chapters){
     if (this->chapters) {
         delete[] this->chapters; 
     }
+    if (!chapters){this->chapters=nullptr;this->nb_chapters=0;return;}
     unsigned int * new_chapters = new unsigned int[nb_chapters];
     for (unsigned int i = 0; i < nb_chapters; i++) new_chapters[i] = chapters[i] ; 
     this->nb_chapters = nb_chapters;
@@ -41,3 +43,24 @@ void Film::disp(ostream & out) const{
     out << ", Number of chapters: " << nb_chapters << endl;
 }
 
+
+Film::Film(const Film & from) : Video::Video(from.get_name(),from.get_path(),
+    from.get_duration()) , nb_chapters{from.get_nb_chapters()} {
+        this->chapters = new unsigned int[nb_chapters]; // Allocation dynamique
+                for (unsigned int i = 0; i < nb_chapters; ++i) {
+                    if (!chapters){this->chapters=nullptr;this->nb_chapters=0;break;}
+                    this->chapters[i] = from.get_chapters()[i]; // Copie des données
+                }
+    };
+
+
+Film & Film::operator=(const Film & from){
+    Video::operator=(from);
+    if (this->chapters) delete[] chapters;
+    this->chapters = new unsigned int[nb_chapters]; // Allocation dynamique
+    for (unsigned int i = 0; i < nb_chapters; ++i) {
+        if (!chapters){this->chapters=nullptr;this->nb_chapters=0;break;}
+        this->chapters[i] = from.get_chapters()[i]; // Copie des données
+    }
+    return *this;
+}

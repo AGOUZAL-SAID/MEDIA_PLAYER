@@ -14,6 +14,11 @@ public:
     
     ~Film( );
 
+    Film(const  Film & from);
+    Film & operator=(const Film & from);
+
+
+
     void set_chapters(unsigned int * chapters,unsigned int nb_chapters);
 
     const unsigned int * get_chapters() const;

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <ostream>
+#include <list>
 
 using namespace std;
 
