@@ -5,20 +5,22 @@ class Film : public Video
 {
 private:
     unsigned int * chapters {};
+    unsigned int nb_chapters {};
 public:
     Film(){}
     
-    Film(string name , string path , unsigned int duration , unsigned int * chapters);
+    Film(string name , string path , unsigned int duration , unsigned int * chapters, 
+        unsigned int nb_chapters);
     
     ~Film( );
 
-    void set_chapters(unsigned int * chapters);
+    void set_chapters(unsigned int * chapters,unsigned int nb_chapters);
 
-    unsigned int * get_chapters() const;
+    const unsigned int * get_chapters() const;
 
     unsigned int get_nb_chapters() const;
 
-    void disp() const ;
+    void disp(ostream & out) const override ;
 
 };
 

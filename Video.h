@@ -34,7 +34,7 @@ public:
     /**
      * @brief Destructor for the Video class.
      */
-    ~Video();
+    ~Video(){};
 
     /**
      * @brief Sets the duration of the video.
