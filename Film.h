@@ -12,11 +12,11 @@ private:
     Film(string name , string path , unsigned int duration , 
         unsigned int * chapters, unsigned int nb_chapters);
     
-    ~Film();
-
+        
     Film(const  Film & from);
     Film & operator=(const Film & from);
 public:
+    ~Film();
 
 
 

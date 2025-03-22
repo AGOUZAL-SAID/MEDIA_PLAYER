@@ -33,14 +33,14 @@ private:
     Photo(string name, string path, double width, double height) : 
     MultiMedia(name, path), width{width}, height{height} {}
 
+    
+public:
     /**
      * @brief Destructor for the Photo class.
      */
     ~Photo(){
         cout<< " A Photo classe has been destroyed U Monster"<<endl; 
     };
-    
-public:
     /**
      * @brief Sets the width of the photo.
      * 

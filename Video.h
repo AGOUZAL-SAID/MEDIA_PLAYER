@@ -32,13 +32,13 @@ private:
     Video(string name, string path, unsigned int duration) :
     MultiMedia(name, path), duration{duration} {}
     
+public:
     /**
      * @brief Destructor for the Video class.
      */
     ~Video(){ 
         cout << " A Video classe has been destroyed U Monster" <<endl; 
     };
-public:
     
     /**
      * @brief Sets the duration of the video.

@@ -1,4 +1,5 @@
 #ifndef COLLECTION_H
+#define COLLECTION_H
 #include "MultiMedia.h"
 typedef std::shared_ptr<MultiMedia> MediaPtr;
 
@@ -8,8 +9,8 @@ class Collection : public list<MediaPtr>
 private:
     string name {};
     Collection(string name);
-    ~Collection(){};
 public:
+    ~Collection(){};
     string get_name() const;
     void disp(ostream & out) const ;
 };
