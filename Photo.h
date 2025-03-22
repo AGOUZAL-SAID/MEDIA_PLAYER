@@ -1,0 +1,103 @@
+#ifndef PHOTO_H
+#define PHOTO_H
+#include "MultiMedia.h"
+
+/**
+ * @class Photo
+ * @brief A class representing a photo file, derived from the MultiMedia base class.
+ * 
+ * This class provides methods to set and get the width and height of the photo, 
+ * display its details, and run the photo using an external player (mpv).
+ */
+class Photo : public MultiMedia
+{
+private:
+    double width {};  ///< Width of the photo in pixels.
+    double height {}; ///< Height of the photo in pixels.
+
+public:
+    /**
+     * @brief Default constructor for the Photo class.
+     * Initializes the photo with default values.
+     */
+    Photo(){}
+
+    /**
+     * @brief Parameterized constructor to initialize a Photo object.
+     * 
+     * @param name The name of the photo.
+     * @param path The file path to the photo.
+     * @param width The width of the photo in pixels.
+     * @param height The height of the photo in pixels.
+     */
+    Photo(string name, string path, double width, double height) : 
+        MultiMedia(name, path), width{width}, height{height} {}
+
+    /**
+     * @brief Destructor for the Photo class.
+     */
+    ~Photo();
+
+    /**
+     * @brief Sets the width of the photo.
+     * 
+     * @param width The width to set for the photo in pixels.
+     */
+    void set_width(double width) {
+        this->width = width;
+    }
+
+    /**
+     * @brief Gets the width of the photo.
+     * 
+     * @return The width of the photo in pixels.
+     */
+    double get_width() const {
+        return this->width;
+    }
+
+    /**
+     * @brief Sets the height of the photo.
+     * 
+     * @param height The height to set for the photo in pixels.
+     */
+    void set_height(double height) {
+        this->height = height;
+    }
+
+    /**
+     * @brief Gets the height of the photo.
+     * 
+     * @return The height of the photo in pixels.
+     */
+    double get_height() const {
+        return this->height;
+    }
+
+    /**
+     * @brief Displays the details of the photo including name, path, width, and height.
+     * 
+     * This function overrides the disp() function in the MultiMedia base class.
+     * 
+     * @param out The output stream to which the details are written.
+     */
+    void disp(ostream & out) const override {
+        out << "name is : " << this->get_name() << "\npath is : "  
+            << this->get_path() << "\nwidth : " << this->get_width() <<
+            "\nheight : " << this->get_height() << endl;
+    }
+
+    /**
+     * @brief Runs the photo using an external player (mpv).
+     * 
+     * This function overrides the run() function in the MultiMedia base class.
+     * It constructs a system command to run the mpv media player with the photo's path.
+     */
+    void run() const override {
+        string command = "mpv"; 
+        command = command + " " + this->get_path() + " &"; 
+        system(command.data()); 
+    }
+};
+
+#endif
