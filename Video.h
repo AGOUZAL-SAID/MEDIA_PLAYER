@@ -34,7 +34,9 @@ public:
     /**
      * @brief Destructor for the Video class.
      */
-    ~Video(){};
+    ~Video(){ 
+         cout << " A Video classe has been destroyed U Monster" <<endl; 
+    };
 
     /**
      * @brief Sets the duration of the video.

@@ -36,7 +36,9 @@ public:
     /**
      * @brief Destructor for the Photo class.
      */
-    ~Photo();
+    ~Photo(){
+        cout<< " A Photo classe has been destroyed U Monster"<<endl; 
+    };
 
     /**
      * @brief Sets the width of the photo.

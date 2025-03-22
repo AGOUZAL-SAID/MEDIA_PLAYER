@@ -4,7 +4,8 @@
 #include <string>
 #include <ostream>
 #include <list>
-
+#include <memory>
+#include <iostream>
 using namespace std;
 
 /**

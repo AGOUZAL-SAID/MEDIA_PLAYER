@@ -1,6 +1,8 @@
 #ifndef COLLECTION_H
 #include "MultiMedia.h"
-class Collection : public list<MultiMedia *>
+typedef std::shared_ptr<MultiMedia> MediaPtr;
+
+class Collection : public list<MediaPtr>
 {
 private:
     string name {};
