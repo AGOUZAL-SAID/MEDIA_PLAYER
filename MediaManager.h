@@ -9,6 +9,7 @@
 
 typedef std::shared_ptr<MultiMedia> MediaPtr;
 typedef std::shared_ptr<Collection> CollectPtr;
+
 typedef std::weak_ptr<const MultiMedia> WeakMediaPtr;
 typedef std::weak_ptr<const Collection> WeakCollectPtr;
 
@@ -27,7 +28,7 @@ public:
     WeakMediaPtr create_video(string name, string path, unsigned int duration);
     WeakMediaPtr create_Film(string name , string path , unsigned int duration , 
         unsigned int * chapters, unsigned int nb_chapters) ;
-    WeakCollectPtr creat_collection(string name);
+    WeakCollectPtr create_collection(string name);
     void disp_media(ostream & out, string name) const;
     void disp_collection(ostream & out, string name) const ;
     void play_media(string name) const;

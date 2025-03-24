@@ -24,7 +24,7 @@ WeakMediaPtr MediaManager::create_Film(string name , string path , unsigned int 
 
     }
 
-WeakCollectPtr MediaManager::creat_collection(string name){
+WeakCollectPtr MediaManager::create_collection(string name){
     CollectPtr groupe(new Collection(name));
     this->groups[name]= groupe;
     WeakCollectPtr groupe_weak = groupe;
