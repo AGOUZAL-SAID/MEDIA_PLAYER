@@ -85,8 +85,8 @@ public:
      * @param out The output stream to which the details are written.
      */
     void disp(ostream & out) const override {
-        out << "name is : " << this->get_name() << "\npath is : "  
-            << this->get_path() << "\nwidth : " << this->get_width() <<
+        MultiMedia::disp(out);  
+        out << this->get_path() << "\nwidth : " << this->get_width() <<
             "\nheight : " << this->get_height() << endl;
     }
 

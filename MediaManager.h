@@ -10,8 +10,10 @@
 typedef std::shared_ptr<MultiMedia> MediaPtr;
 typedef std::shared_ptr<Collection> CollectPtr;
 
-typedef std::weak_ptr<const MultiMedia> WeakMediaPtr;
-typedef std::weak_ptr<const Collection> WeakCollectPtr;
+typedef std::shared_ptr<Photo> SharPhotoPtr;
+typedef std::shared_ptr<Video> SharVideoPtr;
+typedef std::shared_ptr<Film> SharFilmPtr;
+typedef std::shared_ptr<Collection> SharCollectPtr;
 
 typedef std::map<string, CollectPtr > Dict_collection;
 typedef std::map<string, MediaPtr > Dict_Media;
@@ -24,15 +26,17 @@ private:
 public:
     MediaManager(){};
     ~MediaManager(){};
-    WeakMediaPtr create_photo(string name, string path, double width, double height);
-    WeakMediaPtr create_video(string name, string path, unsigned int duration);
-    WeakMediaPtr create_Film(string name , string path , unsigned int duration , 
-        unsigned int * chapters, unsigned int nb_chapters) ;
-    WeakCollectPtr create_collection(string name);
+    SharPhotoPtr create_photo(string name, string path, double width, double height);
+    SharVideoPtr create_video(string name, string path, unsigned int duration);
+    SharFilmPtr create_Film(string name , string path , unsigned int duration , 
+        unsigned int const * chapters, unsigned int nb_chapters) ;
+    SharCollectPtr create_collection(string name);
     void disp_media(ostream & out, string name) const;
     void disp_collection(ostream & out, string name) const ;
     void play_media(string name) const;
     void delete_media(string name) ;
+    void delete_collection(string name) ;
+    void disp_all(ostream & out) const ;
 };
 
 #endif

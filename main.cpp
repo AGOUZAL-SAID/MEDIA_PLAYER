@@ -10,7 +10,7 @@
 #include "Collection.h"
 #include "MediaManager.h"
 using namespace std;
-//#define SERVER_v
+#define SERVER_v
 
 #ifdef SERVER_v
 #include <sstream>
@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
 
   // cree le TCPServer
   auto* server =
-  new TCPServer( [&](std::string const& request, std::string& response) {
+  new TCPServer( [&manager](std::string const& request, std::string& response) {
 
     // the request sent by the client to the server
     cout << "request: " << request << endl;
@@ -56,6 +56,19 @@ int main(int argc, char* argv[])
     else if (cmd_1 =="PLAY_MEDIA")
     {
         manager->play_media(cmd_2);
+    }
+    else if (cmd_1 == "DELETE_MEDIA")
+    {
+        manager->delete_media(cmd_2);
+    }
+    else if (cmd_1 == "DELETE_COLLECTION")
+    {
+        manager->delete_collection(cmd_2);
+    }
+    else if (cmd_1 == "DISP_ALL"){
+        stringstream ss;
+        manager->disp_all(ss);
+        getline(ss,response);
     }
     else{
         response = "Invalide commande";
