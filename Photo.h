@@ -101,6 +101,28 @@ public:
         command = command + " " + this->get_path() + " &"; 
         system(command.data()); 
     }
+
+    string get_class_name()const override{
+        return "Photo";
+    }
+
+    void write(ostream & f) const override{
+        MultiMedia::write(f);
+        f << "Photo" << width << '\n' << height << endl ;
+    }
+
+    void read(istream & f){
+        MultiMedia::read(f);
+        string class_name;
+        streampos position = f.tellg();
+        f >> class_name;
+        if (class_name != "Photo"){
+            cout << "reding the object is impossible not same classe " <<endl;
+            f.seekg(position);
+        }
+        else{
+            f >> width >> height;}
+        }
 };
 
 #endif

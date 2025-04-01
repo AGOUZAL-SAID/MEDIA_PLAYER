@@ -82,6 +82,26 @@ public:
         system(command.data()); 
     }
 
+    string get_class_name() const override{
+        return "Video";
+    }
+
+    void write(ostream & f) const override{
+        MultiMedia::write(f);
+        f <<  duration << endl ;
+    }
+
+    void read(istream & f){
+        MultiMedia::read(f);
+        string class_name;
+        streampos position = f.tellg();
+        f >> class_name;
+        if (class_name != "Video" && class_name != "Film"){
+            cout << "reding the object is impossible not same classe " <<endl;
+            f.seekg(position);
+        }
+        f >> duration ;
+    }
 };
 
 #endif

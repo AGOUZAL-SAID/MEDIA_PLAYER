@@ -75,3 +75,62 @@ void MediaManager::disp_all(ostream & out) const{
         pair.second->disp(out);
     }
 }
+
+void MediaManager::write(ostream & f) const {
+    f << "MediaManager"<< '\n';
+    for (const auto & pair : groups) {
+        pair.second->write(f);
+    }
+    for (const auto & pair : medias) {
+        pair.second->write(f);
+    }
+}
+
+void MediaManager::read(istream & f){
+    string get_name;
+    streampos position = f.tellg();
+    f >> get_name;
+    if (get_name != "MediaManager"){
+        cout << "reading the object is impossible not Manager " <<endl;
+        f.seekg(position);
+    }
+    else {
+        while (911)
+        {
+            if(f.eof()){
+                cout << "end of file LOL :)"<< '\n';
+                break;
+            }
+            streampos position = f.tellg();
+            f >> get_name;
+            if (get_name == "Video"){
+                f.seekg(position);
+                SharVideoPtr p(new Video());
+                p->read(f);
+                medias[p->get_name()] = p;
+            }
+            else if (get_name == "Photo"){
+                f.seekg(position);
+                SharPhotoPtr p(new Photo());
+                p->read(f);
+                medias[p->get_name()] = p;
+            }
+            else if (get_name == "Film"){
+                f.seekg(position);
+                SharFilmPtr p(new Film());
+                p->read(f);
+                medias[p->get_name()] = p;
+            }
+            else if (get_name == "Collection") {
+                f.seekg(position);
+                SharCollectPtr p(new Collection());
+                p->read(f);
+                groups[p->get_name()] = p;
+            }
+            else {
+                cout << "there is no valid object in this file U Monster !";
+                break;
+            }
+        }
+    }
+}

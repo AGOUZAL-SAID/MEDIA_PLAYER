@@ -37,6 +37,9 @@ public:
     void delete_media(string name) ;
     void delete_collection(string name) ;
     void disp_all(ostream & out) const ;
+    void write (ostream & f) const ;
+    void read (istream & f );
+
 };
 
 #endif

@@ -61,3 +61,35 @@ Film & Film::operator=(const Film & from){
     }
     return *this;
 }
+
+
+string Film::get_class_name() const {
+    return "Film";
+}
+
+void Film::write(ostream &f) const{
+    Video::write(f);
+    this->serial_chapters(f);
+    f << nb_chapters << endl ; 
+}
+
+void Film::serial_chapters(ostream & f) const{
+    for (int64_t i = 0 ; i<nb_chapters;i++){
+        f << chapters[i] << '\n';
+    }
+}
+
+void Film::deserial_chapters(istream & f) {
+    chapters = new unsigned int [nb_chapters];
+    for (int64_t i = 0 ; i<nb_chapters ; i++){
+        unsigned int chapter ;
+        f >> chapter;
+        chapters[i] = chapter;
+    }
+}
+
+void Film::read(istream & f){
+    Video::read(f);
+    deserial_chapters(f);
+    f >> nb_chapters;
+}

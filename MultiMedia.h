@@ -73,6 +73,10 @@ public:
      * @brief Runs the file of the multimedia file.
      */
     virtual void run() const = 0;
+    virtual string get_class_name() const = 0;
+
+    virtual void write(ostream & f) const ;
+    virtual void read(istream & f);
 };
 
-#endif // MULTI_MEDIA_H
+#endif // MULTI_MEDIA_

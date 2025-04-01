@@ -27,6 +27,17 @@ public:
     unsigned int get_nb_chapters() const;
 
     void disp(ostream & out) const override ;
+    
+    string get_class_name() const override;
+
+    void serial_chapters(ostream & f) const;
+
+    void deserial_chapters(istream & f) ;
+
+    void write(ostream & f) const override;
+    
+    void read(istream & f) override;
+
 
 };
 
