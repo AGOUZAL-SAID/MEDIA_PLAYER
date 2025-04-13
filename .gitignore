@@ -1,4 +1,5 @@
 *.o
+*.class
 depend-myprog
 .vscode/
 html/

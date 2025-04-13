@@ -105,9 +105,10 @@ void MediaManager::read(istream & f){
         {
             if(f.eof()){
                 cout << "end of file LOL :)"<< '\n';
-                break;
-            }
-            std ::get_line();
+                break;}
+                
+            std::getline(f,get_name);
+
             if (get_name == "Video"){
                 SharVideoPtr p(new Video());
                 p->read(f);
