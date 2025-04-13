@@ -2,15 +2,28 @@ import java.awt.BorderLayout;
 import java.awt.event.*;
 import javax.swing.*;
 
+
 public class Window extends JFrame{
     private static final long serialVersionUID = 1L;
     private final  JTextArea text;
     private final  JButton button1,button2,button3;
-    JMenuBar bar_menu;
+    private final JMenuBar bar_menu;
+    Client client;
+    static final String DEFAULT_HOST = "localhost";
+    static final int DEFAULT_PORT = 3331;
+
     public static void main(String argv[ ]) {
         new Window();
     }
     public Window(){
+        try {
+            client = new Client(DEFAULT_HOST, DEFAULT_PORT);
+        }
+          catch (Exception e) {
+            System.err.println("Client: Couldn't connect to "+DEFAULT_HOST+":"+DEFAULT_PORT);
+            System.exit(1);
+        }
+        System.out.println("Client connected to "+DEFAULT_HOST+":"+DEFAULT_PORT);
         setTitle("MEDIA PLAYER");
         text = new JTextArea("message",1,30);
         JScrollPane scroll_text = new JScrollPane(text);
