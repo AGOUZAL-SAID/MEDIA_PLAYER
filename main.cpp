@@ -9,8 +9,10 @@
 #include "Film.h"
 #include "Collection.h"
 #include "MediaManager.h"
+#include <fstream>
+
 using namespace std;
-#define SERVER_v
+//#define SERVER_v
 
 #ifdef SERVER_v
 #include <sstream>
@@ -100,21 +102,31 @@ int main(int argc, const char* argv[]){
     manager->create_video("v2","c:",60);
     manager->create_collection("vacances");
     unsigned int chapters[6] = {0,1,2,3,4,5};
-    manager->create_Film("john cena","c:/www",50,chapters,6);
+    manager->create_Film("johncena","c:/www",50,chapters,6);
     manager->disp_collection(cout,"vacances");
     manager->disp_media(cout,"p1");
     manager->disp_media(cout,"v1");
     manager->disp_media(cout,"v2");
     manager->disp_media(cout,"john cena");
+    std::ofstream file("serialisation.txt");
+    if (!file){ cout << "failed open file "<< endl; return 0;}
+    manager->write(file);
     manager->delete_media("p1");
     manager->delete_media("v1");
     manager->delete_media("v2");
     manager->delete_media("john cena");
-    
+    file.close();
     cout << " deleting excuted succefully :)"<<endl;
     manager->create_Film("john cena","c:/www",50,chapters,6);
-    delete manager;
-    cout << "function excuted succefully :) " << endl;
-
+    //delete manager;
+    cout << "deletion excuted succefully :) " << endl;
+    std::ifstream p("serialisation.txt");
+    if (!p){ cout << "failed open file "<< endl; return 0;}
+    manager->read(p);
+    //manager->disp_collection(cout,"vacances");
+    //manager->disp_media(cout,"p1");
+    //manager->disp_media(cout,"v1");
+    //manager->disp_media(cout,"v2");
+    //manager->disp_media(cout,"john cena");
 }
 #endif

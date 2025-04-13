@@ -1,6 +1,14 @@
 #include "MediaManager.h"
-
-
+#include <fstream>
+#include <iostream>
+#include <iostream>
+#include <memory>
+#include "Video.h"
+#include "Photo.h"
+#include "Film.h"
+#include "Collection.h"
+#include "MediaManager.h"
+#include <fstream>
 SharPhotoPtr MediaManager::create_photo(string name, string path, double width, double height){
     SharPhotoPtr photo(new Photo(name, path, width, height));
     this->medias[name]=photo;
@@ -88,47 +96,40 @@ void MediaManager::write(ostream & f) const {
 
 void MediaManager::read(istream & f){
     string get_name;
-    streampos position = f.tellg();
     f >> get_name;
     if (get_name != "MediaManager"){
         cout << "reading the object is impossible not Manager " <<endl;
-        f.seekg(position);
     }
     else {
-        while (911)
+        while (true)
         {
             if(f.eof()){
                 cout << "end of file LOL :)"<< '\n';
                 break;
             }
-            streampos position = f.tellg();
-            f >> get_name;
+            std ::get_line();
             if (get_name == "Video"){
-                f.seekg(position);
                 SharVideoPtr p(new Video());
                 p->read(f);
                 medias[p->get_name()] = p;
             }
             else if (get_name == "Photo"){
-                f.seekg(position);
                 SharPhotoPtr p(new Photo());
                 p->read(f);
                 medias[p->get_name()] = p;
             }
             else if (get_name == "Film"){
-                f.seekg(position);
                 SharFilmPtr p(new Film());
                 p->read(f);
                 medias[p->get_name()] = p;
             }
             else if (get_name == "Collection") {
-                f.seekg(position);
                 SharCollectPtr p(new Collection());
                 p->read(f);
                 groups[p->get_name()] = p;
             }
             else {
-                cout << "there is no valid object in this file U Monster !";
+                cout << "there is an invalid object in this file U Monster !";
                 break;
             }
         }

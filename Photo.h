@@ -107,22 +107,14 @@ public:
     }
 
     void write(ostream & f) const override{
+        f << "Photo"<<'\n';
         MultiMedia::write(f);
-        f << "Photo" << width << '\n' << height << endl ;
+        f << width << '\n' << height << endl ;
     }
 
     void read(istream & f){
         MultiMedia::read(f);
-        string class_name;
-        streampos position = f.tellg();
-        f >> class_name;
-        if (class_name != "Photo"){
-            cout << "reding the object is impossible not same classe " <<endl;
-            f.seekg(position);
-        }
-        else{
-            f >> width >> height;}
-        }
+        f >> width >> height;}
 };
 
 #endif

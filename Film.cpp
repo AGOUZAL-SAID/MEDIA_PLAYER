@@ -3,13 +3,7 @@
 Film::Film(string name , string path , unsigned int duration , unsigned int const * 
     chapters,unsigned int  nb_chapters):
     Video::Video(name,path,duration) , nb_chapters{nb_chapters} {
-        {
-            this->chapters = new unsigned int[nb_chapters]; // Allocation dynamique
-            for (unsigned int i = 0; i < nb_chapters; ++i) {
-                if (!chapters){this->chapters=nullptr;this->nb_chapters=0;break;}
-                this->chapters[i] = chapters[i]; // Copie des données
-            }
-        }
+        set_chapters(chapters,nb_chapters);
     };
 
 Film::~Film( ) { delete[] chapters;}
@@ -68,9 +62,11 @@ string Film::get_class_name() const {
 }
 
 void Film::write(ostream &f) const{
-    Video::write(f);
-    this->serial_chapters(f);
+    f <<"Film"<<'\n';
+    MultiMedia::write(f);
+    f <<  duration << '\n' ;
     f << nb_chapters << endl ; 
+    this->serial_chapters(f) ;
 }
 
 void Film::serial_chapters(ostream & f) const{
@@ -90,6 +86,6 @@ void Film::deserial_chapters(istream & f) {
 
 void Film::read(istream & f){
     Video::read(f);
-    deserial_chapters(f);
     f >> nb_chapters;
+    deserial_chapters(f);
 }

@@ -22,13 +22,5 @@ string Collection::get_class_name() const {
 }
 
 void Collection::read(istream & f)  {
-        string get_name;
-        streampos position = f.tellg();
-        f >> get_name;
-        if (get_name != "Collection"){
-            cout << "reding the object is impossible not same classe " <<endl;
-            f.seekg(position);
-        }
-        else {
-            f >> name;
-}}
+    f >> name;
+}
