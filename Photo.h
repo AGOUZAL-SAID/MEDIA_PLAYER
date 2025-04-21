@@ -86,7 +86,7 @@ public:
      */
     void disp(ostream & out) const override {
         MultiMedia::disp(out);  
-        out << this->get_path() << "\nwidth : " << this->get_width() <<
+        out << "\nwidth : " << this->get_width() <<
             "\nheight : " << this->get_height() << endl;
     }
 
@@ -97,7 +97,7 @@ public:
      * It constructs a system command to run the mpv media player with the photo's path.
      */
     void run() const override {
-        string command = "mpv"; 
+        string command = "mpv --keep-open"; 
         command = command + " " + this->get_path() + " &"; 
         system(command.data()); 
     }

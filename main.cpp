@@ -12,7 +12,7 @@
 #include <fstream>
 
 using namespace std;
-//#define SERVER_v
+#define SERVER_v
 
 #ifdef SERVER_v
 #include <sstream>
@@ -24,6 +24,15 @@ int main(int argc, char* argv[])
 {
 
     MediaManager * manager = new MediaManager();
+    {
+    std::shared_ptr<Video> media1 = manager->create_video("video1","tralalelo.mp4",50);
+    std::shared_ptr<Photo> media2 = manager->create_photo("photo1","photo1.jpg",50,50);
+    std::shared_ptr<Film> media3 = manager->create_Film("Film2","film.mp4",50,nullptr,0);
+    std::shared_ptr<Collection> groupe = manager->create_collection("HAPPY");
+    groupe->push_back(media1);
+    groupe->push_back(media2);
+    groupe->push_back(media3);
+    }
 
   // cree le TCPServer
   auto* server =
@@ -44,16 +53,27 @@ int main(int argc, char* argv[])
         else if(i==2){cmd_2 = word;i++;}
         else {cmd_3 = word;break;}
     }
+    cout<<"ma commande : "<<cmd_1<<endl;
     if(cmd_1 == "FIND_MEDIA"){
         stringstream ss;
+        string moha;
+        string disp = "";
         manager->disp_media(ss,cmd_2);
-        getline(ss,response);
+        while (getline(ss,moha)){
+            disp = disp + moha + '_';
+        };
+        response = disp;
     }
     else if (cmd_1 == "FIND_GROUPE")
     {
         stringstream ss;
+        string moha;
+        string disp = "";
         manager->disp_collection(ss,cmd_2);
-        getline(ss,response);
+        while (getline(ss,moha)){
+            disp = disp + moha + '_';
+        };
+        response = disp;
     }
     else if (cmd_1 =="PLAY_MEDIA")
     {
@@ -69,8 +89,13 @@ int main(int argc, char* argv[])
     }
     else if (cmd_1 == "DISP_ALL"){
         stringstream ss;
+        string moha;
+        string disp = "";
         manager->disp_all(ss);
-        getline(ss,response);
+        while (getline(ss,moha)){
+            disp = disp + moha + '_';
+        };
+        response = disp;
     }
     else{
         response = "Invalide commande";
@@ -92,9 +117,9 @@ int main(int argc, char* argv[])
     
     return 0;
 }
-#endif
 
-#ifndef SERVER_V
+#else
+
 int main(int argc, const char* argv[]){
     MediaManager * manager = new MediaManager();
     manager->create_photo("p1","d:",50,50);
@@ -123,10 +148,10 @@ int main(int argc, const char* argv[]){
     std::ifstream p("serialisation.txt");
     if (!p){ cout << "failed open file "<< endl; return 0;}
     manager->read(p);
-    //manager->disp_collection(cout,"vacances");
-    //manager->disp_media(cout,"p1");
-    //manager->disp_media(cout,"v1");
-    //manager->disp_media(cout,"v2");
-    //manager->disp_media(cout,"john cena");
+    manager->disp_collection(cout,"vacances");
+    manager->disp_media(cout,"p1");
+    manager->disp_media(cout,"v1");
+    manager->disp_media(cout,"v2");
+    manager->disp_media(cout,"john cena");
 }
 #endif

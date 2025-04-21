@@ -14,7 +14,7 @@ PROG = myprog
 #
 # Fichiers sources (NE PAS METTRE les .h ni les .o seulement les .cpp)
 #
-SOURCES = main.cpp MultiMedia.cpp Film.cpp Collection.cpp MediaManager.cpp
+SOURCES = main.cpp MultiMedia.cpp Film.cpp Collection.cpp MediaManager.cpp ccsocket.cpp tcpserver.cpp
 
 #
 # Fichiers objets (ne pas modifier sauf si l'extension n'est pas .cpp)
@@ -55,6 +55,7 @@ LDLIBS =
 all: ${PROG}
 
 run: ${PROG}
+	rm -f depend-myprog
 	./${PROG}
 
 ${PROG}: depend-${PROG} ${OBJETS}

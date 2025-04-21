@@ -67,7 +67,7 @@ public:
      */
     void disp(ostream & out) const override {
         MultiMedia::disp(out); 
-        out << this->get_path() <<"\nduration : " << this->get_duration() << endl; 
+        out << "\nduration : " << this->get_duration() << endl; 
     }
 
     /**
@@ -77,7 +77,7 @@ public:
      * It constructs a system command to run the mpv media player with the video's path.
      */
     void run() const override {
-        string command = "mpv"; 
+        string command = "mpv --keep-open"; 
         command = command + " "  + this->get_path() + " &"; 
         system(command.data()); 
     }
