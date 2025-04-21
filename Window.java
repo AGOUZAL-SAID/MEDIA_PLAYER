@@ -2,32 +2,47 @@ import java.awt.BorderLayout;
 import java.awt.event.*;
 import javax.swing.*;
 
-
-public class Window extends JFrame{
+/**
+ * The main GUI window for the Media Player application.
+ * Provides a user interface to interact with the media server.
+ */
+public class Window extends JFrame {
     private static final long serialVersionUID = 1L;
-    private final  JTextArea text;
-    private final  JButton button1,button2,button3;
+    private final JTextArea text;
+    private final JButton button1, button2, button3;
     private final JMenuBar bar_menu;
     Client client;
     static final String DEFAULT_HOST = "localhost";
     static final int DEFAULT_PORT = 3331;
 
-    public static void main(String argv[ ]) {
+    /**
+     * Main entry point for the application.
+     * @param argv Command line arguments (not used)
+     */
+    public static void main(String argv[]) {
         new Window();
     }
-    public Window(){
+
+    /**
+     * Constructs the main application window.
+     * Initializes the GUI components and sets up event handlers.
+     */
+    public Window() {
         try {
             client = new Client(DEFAULT_HOST, DEFAULT_PORT);
-        }
-          catch (Exception e) {
+        } catch (Exception e) {
             System.err.println("Client: Couldn't connect to "+DEFAULT_HOST+":"+DEFAULT_PORT);
             System.exit(1);
         }
         System.out.println("Client connected to "+DEFAULT_HOST+":"+DEFAULT_PORT);
+
+        // Initialize GUI components
         setTitle("MEDIA PLAYER");
         text = new JTextArea("message",1,30);
         JScrollPane scroll_text = new JScrollPane(text);
         add(scroll_text,BorderLayout.CENTER);
+
+        // Create buttons
         button1 = new JButton("text1");
         button2 = new JButton("CLEAR");
         button3 = new JButton("EXIT");
@@ -37,6 +52,8 @@ public class Window extends JFrame{
         JButton button7 = new JButton("DELETE_MEDIA");
         JButton button8 = new JButton("DELETE_COLLECTION");
         JButton button9 = new JButton("DISP_ALL");
+
+        // Set up button panel
         JPanel panel = new JPanel();
         panel.add(button1);
         panel.add(button2);
@@ -48,6 +65,7 @@ public class Window extends JFrame{
         panel.add(button8);
         panel.add(button9);
 
+        // Set up menu bar and toolbar
         bar_menu = new JMenuBar();
         JMenu menu = new JMenu();
         menu.add(button1);
@@ -70,6 +88,8 @@ public class Window extends JFrame{
         bar_menu.add(tool);
         bar_menu.add(menu); 
         add(panel,BorderLayout.SOUTH);
+
+        // Add action listeners
         button1.addActionListener(new Click1());
         button2.addActionListener(new Click2());
         button3.addActionListener(new Click3());
@@ -79,86 +99,125 @@ public class Window extends JFrame{
         button7.addActionListener(new Click7());    
         button8.addActionListener(new Click8());
         button9.addActionListener(new Click9());
+
+        // Finalize window setup
         setJMenuBar(bar_menu);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         pack();
         setVisible(true);
     }
 
-    class Click1 implements ActionListener{
+    /**
+     * ActionListener for button1 ("text1" button).
+     * Displays a greeting message in the text area.
+     */
+    class Click1 implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             text.setText("Hello adventure");
-            }
+        }
     }
 
-    class Click2 implements ActionListener{
+    /**
+     * ActionListener for button2 ("CLEAR" button).
+     * Clears the text area.
+     */
+    class Click2 implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent e) {
             text.setText("");
-            }
+        }
     }
 
-    class Click3 implements ActionListener{
+    /**
+     * ActionListener for button3 ("EXIT" button).
+     * Terminates the application.
+     */
+    class Click3 implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent e) {
             System.exit(0);
-            }
+        }
     }
     
-    
-    class Click4 implements ActionListener{
+    /**
+     * ActionListener for button4 ("FIND_MEDIA" button).
+     * Sends a FIND_MEDIA request to the server and displays the response.
+     */
+    class Click4 implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e){
-            String name  =text.getText();
-            String response = client.send("FIND_MEDIA " +name);
+        public void actionPerformed(ActionEvent e) {
+            String name = text.getText();
+            String response = client.send("FIND_MEDIA " + name);
             String new_resp = response.replace('_', '\n');
-            text.append("\n" + new_resp + "\n" );
-            }
+            text.append("\n" + new_resp + "\n");
+        }
     }
-    class Click5 implements ActionListener{
+
+    /**
+     * ActionListener for button5 ("FIND_GROUPE" button).
+     * Sends a FIND_GROUPE request to the server and displays the response.
+     */
+    class Click5 implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e){
-            String name  =text.getText();
-            String response = client.send("FIND_GROUPE " +name);
+        public void actionPerformed(ActionEvent e) {
+            String name = text.getText();
+            String response = client.send("FIND_GROUPE " + name);
             String new_resp = response.replace('_', '\n');
-            text.append("\n" + new_resp + "\n" );
-            }
+            text.append("\n" + new_resp + "\n");
+        }
     }
-    class Click6 implements ActionListener{
+
+    /**
+     * ActionListener for button6 ("PLAY_MEDIA" button).
+     * Sends a PLAY_MEDIA request to the server and displays the response.
+     */
+    class Click6 implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e){
-            String name  =text.getText();
-            String response = client.send("PLAY_MEDIA " +name);
-            text.append("\n" + response + "\n" );
-            }
+        public void actionPerformed(ActionEvent e) {
+            String name = text.getText();
+            String response = client.send("PLAY_MEDIA " + name);
+            text.append("\n" + response + "\n");
+        }
     }
-    class Click7 implements ActionListener{
+
+    /**
+     * ActionListener for button7 ("DELETE_MEDIA" button).
+     * Sends a DELETE_MEDIA request to the server and displays the response.
+     */
+    class Click7 implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e){
-            String name  =text.getText();
-            String response = client.send("DELETE_MEDIA " +name);
-                text.append("\n" + response + "\n" );
-            }
+        public void actionPerformed(ActionEvent e) {
+            String name = text.getText();
+            String response = client.send("DELETE_MEDIA " + name);
+            text.append("\n" + response + "\n");
+        }
     }                   
 
-    class Click8 implements ActionListener{
+    /**
+     * ActionListener for button8 ("DELETE_COLLECTION" button).
+     * Sends a DELETE_COLLECTION request to the server and displays the response.
+     */
+    class Click8 implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e){
-            String name  =text.getText();
-            String response = client.send("DELETE_COLLECTION " +name);
-                text.append("\n" + response + "\n" );
-            }
+        public void actionPerformed(ActionEvent e) {
+            String name = text.getText();
+            String response = client.send("DELETE_COLLECTION " + name);
+            text.append("\n" + response + "\n");
+        }
     }
 
-    class Click9 implements ActionListener{
+    /**
+     * ActionListener for button9 ("DISP_ALL" button).
+     * Sends a DISP_ALL request to the server and displays the response.
+     */
+    class Click9 implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e){
-            String name  =text.getText();
-            String response = client.send("DISP_ALL " +name);
+        public void actionPerformed(ActionEvent e) {
+            String name = text.getText();
+            String response = client.send("DISP_ALL " + name);
             String new_resp = response.replace('_', '\n');
-            text.append("\n" + new_resp + "\n" );
-            }
+            text.append("\n" + new_resp + "\n");
+        }
     }
-
 }

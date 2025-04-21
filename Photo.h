@@ -37,10 +37,12 @@ private:
 public:
     /**
      * @brief Destructor for the Photo class.
+     * Outputs a message when the photo object is destroyed.
      */
     ~Photo(){
         cout<< " A Photo classe has been destroyed U Monster"<<endl; 
     };
+    
     /**
      * @brief Sets the width of the photo.
      * 
@@ -102,19 +104,35 @@ public:
         system(command.data()); 
     }
 
+    /**
+     * @brief Gets the class name of the object.
+     * 
+     * @return A string representing the class name ("Photo").
+     */
     string get_class_name()const override{
         return "Photo";
     }
 
+    /**
+     * @brief Writes the photo's attributes to an output stream.
+     * 
+     * @param f The output stream to write to.
+     */
     void write(ostream & f) const override{
         f << "Photo"<<'\n';
         MultiMedia::write(f);
         f << width << '\n' << height << endl ;
     }
 
+    /**
+     * @brief Reads the photo's attributes from an input stream.
+     * 
+     * @param f The input stream to read from.
+     */
     void read(istream & f){
         MultiMedia::read(f);
-        f >> width >> height;}
+        f >> width >> height;
+    }
 };
 
 #endif

@@ -82,16 +82,31 @@ public:
         system(command.data()); 
     }
 
+    /**
+     * @brief Gets the class name of the object.
+     * 
+     * @return A string representing the class name ("Video").
+     */
     string get_class_name() const override{
         return "Video";
     }
 
+    /**
+     * @brief Writes the video's attributes to an output stream.
+     * 
+     * @param f The output stream to write to.
+     */
     void write(ostream & f) const override{
         f << "Video" <<'\n';
         MultiMedia::write(f);
         f <<  duration << '\n' ;
     }
 
+    /**
+     * @brief Reads the video's attributes from an input stream.
+     * 
+     * @param f The input stream to read from.
+     */
     void read(istream & f){
         MultiMedia::read(f);
         f >> duration ;
