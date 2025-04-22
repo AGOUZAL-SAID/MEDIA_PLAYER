@@ -72,11 +72,7 @@ The application by default runs in server mode (with the `SERVER_v` define activ
 To use the local testing mode (requires changing the SERVER_v define in main.cpp):
 
 1. Comment out the `#define SERVER_v` line in main.cpp
-2. Recompile the application
-3. Run the local test version:
-```bash
-./multimedia_local
-```
+2. Type make run
 
 This mode demonstrates the basic functionality by creating sample media objects, displaying their information, serializing them to a file, deleting them, and then restoring them by deserialization.
 
