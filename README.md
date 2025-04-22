@@ -43,28 +43,21 @@ brew install mpv
 1. Download the installer from [mpv.io](https://mpv.io/installation/)
 2. Install mpv and ensure it's added to your system PATH
 
-### 2. Building the Application
+## Building the Application
 
-#### Using g++:
-```bash
-# Compile the server version
-g++ -std=c++11 main.cpp MultiMedia.cpp Video.cpp Photo.cpp Film.cpp Collection.cpp MediaManager.cpp tcpserver.cpp -o multimedia_server
+### Server Setup
+1. Go to the repository `cpp` and type `make run` in the terminal to start the server on host port 3331.
+2. You can change the port of the server, but make sure to also update it for the client.
 
-# OR compile the local test version (comment the SERVER_v define in main.cpp)
-# g++ -std=c++11 main.cpp MultiMedia.cpp Video.cpp Photo.cpp Film.cpp Collection.cpp MediaManager.cpp -o multimedia_local
-```
+### Client Setup
+1. Go to the repository `swing` and type `make run` in the terminal to start the client (application).
 
 ## Usage
 
 ### Server Mode
-The application by default runs in server mode (with the SERVER_v define active in main.cpp).
+The application by default runs in server mode (with the `SERVER_v` define active in `main.cpp`).
 
-1. Start the server:
-```bash
-./multimedia_server
-```
-
-2. The server will start on port 3331 and accept the following commands from clients:
+1. The server will start on port 3331 and accept the following commands from clients:
    - `FIND_MEDIA [name]` - Display information about a specific media item
    - `FIND_GROUPE [name]` - Display information about a specific collection
    - `PLAY_MEDIA [name]` - Play a specific media item using mpv
@@ -72,6 +65,9 @@ The application by default runs in server mode (with the SERVER_v define active 
    - `DELETE_COLLECTION [name]` - Delete a specific collection
    - `DISP_ALL` - Display information about all media items and collections
 
+2. For commands that end with `[name]`, you should:
+   - Click the "CLEAR" button
+   - Type the name of the media or collection you want to play or find
 ### Local Testing Mode
 To use the local testing mode (requires changing the SERVER_v define in main.cpp):
 
@@ -83,20 +79,6 @@ To use the local testing mode (requires changing the SERVER_v define in main.cpp
 ```
 
 This mode demonstrates the basic functionality by creating sample media objects, displaying their information, serializing them to a file, deleting them, and then restoring them by deserialization.
-
-## Client Connection
-You can connect to the server using telnet or any TCP client:
-
-```bash
-telnet localhost 3331
-```
-
-Example commands to send:
-```
-DISP_ALL
-FIND_MEDIA video1
-PLAY_MEDIA video1
-```
 
 ## Class Structure
 
@@ -117,3 +99,15 @@ The server mode initializes with some sample data:
 - A photo named "photo1"
 - A film named "Film2"
 - A collection named "HAPPY" containing the above items
+
+### Answers to Specific Questions:
+
+**Step 5 (Polymorphism):**  
+The array must contain pointers (`Multimedia*` or `shared_ptr<Multimedia>`) to avoid slicing and enable polymorphism.
+
+**Step 6 (Arrays):**  
+The modifier must copy the data from the external array to ensure encapsulation.
+
+**Step 8 (Groups):**  
+Use pointers to avoid duplication and allow sharing between groups (unlike in Java, where references are sufficient).
+
