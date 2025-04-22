@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
                 response = disp;
             }
             else {
-                response = "Waiting for commande";
+                response = "Waiting or try again the server block two seconds some times";
             }
             // return false would close the connection with the client
             return true;
