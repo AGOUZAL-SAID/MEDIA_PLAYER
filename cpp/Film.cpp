@@ -72,6 +72,7 @@ void Film::disp(ostream& out) const {
     Video::disp(out);
     out << "Chapters duration are: ";
     for (unsigned int i = 0; i < nb_chapters; ++i) {
+        if (chapters==nullptr) break;
         out << chapters[i] << " ";
     }
     out << ", Number of chapters: " << nb_chapters << endl;
